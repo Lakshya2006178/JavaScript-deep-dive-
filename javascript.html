@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Learning Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #1a1a1a;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4fc3f7;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #333;
+        }
+
+        .section h2 {
+            color: #4fc3f7;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4fc3f7;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .project {
+            background: #404040;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #555;
+        }
+
+        .project h3 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+        }
+
+        
+        .counter-display {
+            font-size: 3em;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #555;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+
+        .counter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary { background: #4fc3f7; color: #1a1a1a; }
+        .btn-success { background: #66bb6a; color: #1a1a1a; }
+        .btn-danger { background: #ef5350; color: white; }
+        .btn-warning { background: #ffca28; color: #1a1a1a; }
+
+        .btn:hover { opacity: 0.8; }
+
+       
+        .todo-input {
+            width: 70%;
+            padding: 10px;
+            border: 2px solid #666;
+            border-radius: 5px;
+            margin-right: 10px;
+            background: #555;
+            color: #e0e0e0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: #555;
+            border: 1px solid #666;
+            border-radius: 5px;
+        }
+
+        .todo-item.completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+            background: #444;
+        }
+
+        .todo-text {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+       
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2d2d2d;
+            color: #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            border: 2px solid #4fc3f7;
+        }
+
+        .modal-close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+            background: #ef5350;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+
+       
+        .slider-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .slider-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .slider-controls {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .slider-controls button {
+            margin: 0 5px;
+        }
+
+        .slider-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        
+        .api-result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 50px;
+            background: #555;
+            border: 1px solid #666;
+        }
+
+        .loading {
+            background: #ffca28;
+            color: #1a1a1a;
+        }
+
+        .success {
+            background: #66bb6a;
+            color: #1a1a1a;
+        }
+
+        .error {
+            background: #ef5350;
+            color: white;
+        }
+
+        .weather-data {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .weather-item {
+            background: rgba(79, 195, 247, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .github-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .github-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #4fc3f7;
+        }
+
+        .github-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .github-stat {
+            background: rgba(79, 195, 247, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+       
+        .demo-output {
+            background: #1a1a1a;
+            color: #66bb6a;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 10px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #4fc3f7;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .todo-input {
+                width: 60%;
+            }
+            
+            .counter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 JavaScript Learning Projects</h1>
+
+        
+        <div class="section">
+            <h2>DOM Projects & Event Handling</h2>
+            <div class="projects-grid">
+                
+               
+                <div class="project">
+                    <h3>🔢 Counter App</h3>
+                    <div class="counter-display" id="counterValue">0</div>
+                    <div class="counter-buttons" id="counterButtons">
+                        <button class="btn btn-success" data-action="increment">+1</button>
+                        <button class="btn btn-danger" data-action="decrement">-1</button>
+                        <button class="btn btn-warning" data-action="increment5">+5</button>
+                        <button class="btn btn-primary" data-action="reset">Reset</button>
+                    </div>
+                    <p><strong>Event Delegation:</strong> One listener handles all buttons</p>
+                </div>
+
+               
+                <div class="project">
+                    <h3>📝 Todo List</h3>
+                    <div>
+                        <input type="text" id="todoInput" class="todo-input" placeholder="Add a task...">
+                        <button class="btn btn-primary" onclick="addTodo()">Add</button>
+                    </div>
+                    <div id="todoList"></div>
+                    <p><strong>Event Bubbling:</strong> Click any item to toggle/delete</p>
+                </div>
+
+               
+                <div class="project">
+                    <h3>🪟 Modal Dialog</h3>
+                    <button class="btn btn-primary" onclick="openModal()">Open Modal</button>
+                    <p><strong>Event Propagation:</strong> Click outside to close</p>
+                    
+                    <div id="modal" class="modal">
+                        <div class="modal-content">
+                            <button class="modal-close" onclick="closeModal()">&times;</button>
+                            <h3>Modal Example</h3>
+                            <p>This demonstrates event bubbling and DOM manipulation.</p>
+                            <p>Try clicking outside the modal to close it!</p>
+                            <button class="btn btn-success" onclick="alert('Button clicked!')">Action</button>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="project">
+                    <h3>🖼️ Image Slider</h3>
+                    <div class="slider-container">
+                        <img id="sliderImage" class="slider-image" src="" alt="Landscape">
+                        <div class="slider-controls">
+                            <button class="btn btn-primary" onclick="prevImage()">◀ Previous</button>
+                            <button class="btn btn-primary" onclick="nextImage()">Next ▶</button>
+                        </div>
+                        <div class="slider-info">
+                            <span id="imageInfo">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+           <div class="section">
+            <h2>ES6+ Features</h2>
+            <div class="projects-grid">
+                
+                <div class="project">
+                    <h3>🚀 Arrow Functions & Template Literals</h3>
+                    <button class="btn btn-primary" onclick="demoArrowFunctions()">Run Demo</button>
+                    <div id="arrowDemo" class="demo-output">Click button to see arrow functions in action</div>
+                </div>
+
+                <div class="project">
+                    <h3>📦 Destructuring & Spread</h3>
+                    <button class="btn btn-primary" onclick="demoDestructuring()">Run Demo</button>
+                    <div id="destructuringDemo" class="demo-output">Click button to see destructuring examples</div>
+                </div>
+
+                <div class="project">
+                    <h3>⚡ Promises & Async/Await</h3>
+                    <button class="btn btn-primary" onclick="demoAsync()">Run Demo</button>
+                    <div id="asyncDemo" class="demo-output">Click button to see async operations</div>
+                </div>
+
+                <div class="project">
+                    <h3>🔧 Let/Const & Modules</h3>
+                    <button class="btn btn-primary" onclick="demoModern()">Run Demo</button>
+                    <div id="modernDemo" class="demo-output">Click button to see modern JavaScript features</div>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="section">
+            <h2>APIs & Fetch</h2>
+            <div class="projects-grid">
+                
+                
+                <div class="project">
+                    <h3>🌤️ Weather App</h3>
+                    <input type="text" id="cityInput" placeholder="Enter city name" style="width: 70%; padding: 10px; margin-right: 10px;">
+                    <button class="btn btn-primary" onclick="getWeather()">Get Weather</button>
+                    <div id="weatherResult" class="api-result">Enter a city to get weather data</div>
+                </div>
+
+                
+                <div class="project">
+                    <h3>👨‍💻 GitHub User Finder</h3>
+                    <input type="text" id="githubInput" placeholder="Enter GitHub username" style="width: 70%; padding: 10px; margin-right: 10px;">
+                    <button class="btn btn-primary" onclick="getGithubUser()">Find User</button>
+                    <div id="githubResult" class="api-result">Enter a username to find GitHub user</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       
+        let counter = 0;
+        let todos = [];
+        let currentImageIndex = 0;
+        
+        
+        const images = [
+            {
+                url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop",
+                caption: "Mountain Vista - Majestic peaks"
+            },
+            {
+                url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=250&fit=crop",
+                caption: "Forest Trail - Peaceful woods"
+            },
+            {
+                url: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=400&h=250&fit=crop",
+                caption: "Lake Reflection - Crystal waters"
+            },
+            {
+                url: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=250&fit=crop",
+                caption: "Desert Landscape - Golden sands"
+            }
+        ];
+
+        document.getElementById('counterButtons').addEventListener('click', function(e) {
+            if (e.target.matches('[data-action]')) {
+                const action = e.target.getAttribute('data-action');
+                handleCounterAction(action);
+            }
+        });
+
+        function handleCounterAction(action) {
+            switch(action) {
+                case 'increment':
+                    counter++;
+                    break;
+                case 'decrement':
+                    counter--;
+                    break;
+                case 'increment5':
+                    counter += 5;
+                    break;
+                case 'reset':
+                    counter = 0;
+                    break;
+            }
+            updateCounterDisplay();
+        }
+
+        function updateCounterDisplay() {
+            const display = document.getElementById('counterValue');
+            display.textContent = counter;
+            display.style.color = counter > 0 ? '#66bb6a' : counter < 0 ? '#ef5350' : '#4fc3f7';
+        }
+
+       
+        document.getElementById('todoInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTodo();
+            }
+        });
+
+
+        document.addEventListener('click', function(e) {
+           
+            if (e.target.matches('.delete-btn')) {
+                e.stopPropagation(); 
+                const index = parseInt(e.target.getAttribute('data-index'));
+                deleteTodo(index);
+            } 
+            
+            else if (e.target.matches('.todo-item') && !e.target.matches('input')) {
+                const index = parseInt(e.target.getAttribute('data-index'));
+                toggleTodo(index);
+            }
+        });
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                todos.push({ text: text, completed: false });
+                input.value = '';
+                renderTodos();
+            }
+        }
+
+        function toggleTodo(index) {
+            todos[index].completed = !todos[index].completed;
+            renderTodos();
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            renderTodos();
+        }
+
+        function renderTodos() {
+            const list = document.getElementById('todoList');
+            list.innerHTML = '';
+            
+            todos.forEach((todo, index) => {
+                const div = document.createElement('div');
+                div.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+                div.setAttribute('data-index', index);
+                div.innerHTML = `
+                    <input type="checkbox" ${todo.completed ? 'checked' : ''} 
+                           onchange="toggleTodo(${index})" 
+                           onclick="event.stopPropagation()" 
+                           style="margin-right: 10px;">
+                    <span class="todo-text">${todo.text}</span>
+                    <button class="btn btn-danger delete-btn" 
+                            data-index="${index}" 
+                            style="margin-left: auto; padding: 5px 10px; font-size: 12px;">
+                        Delete
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+       
+        function openModal() {
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+       
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+       
+        function initSlider() {
+            if (images.length > 0) {
+                updateSliderImage();
+            }
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            updateSliderImage();
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            updateSliderImage();
+        }
+
+        function updateSliderImage() {
+            const img = document.getElementById('sliderImage');
+            const info = document.getElementById('imageInfo');
+            
+            img.src = images[currentImageIndex].url;
+            info.textContent = `${currentImageIndex + 1}/${images.length} - ${images[currentImageIndex].caption}`;
+        }
+
+       
+        function demoArrowFunctions() {
+            const output = document.getElementById('arrowDemo');
+            
+           
+            const traditional = function(name) {
+                return "Hello " + name;
+            };
+            
+           
+            const arrow = (name) => `Hello ${name}!`;
+            
+          
+            const numbers = [1, 2, 3, 4, 5];
+            const doubled = numbers.map(n => n * 2);
+            const sum = numbers.reduce((acc, n) => acc + n, 0);
+            
+            output.textContent = `Traditional: ${traditional("World")}
+Arrow: ${arrow("ES6")}
+Numbers: [${numbers.join(', ')}]
+Doubled: [${doubled.join(', ')}]
+Sum: ${sum}`;
+        }
+
+       
+        
+        function demoDestructuring() {
+            const output = document.getElementById('destructuringDemo');
+            
+            
+            
+            const colors = ['red', 'green', 'blue'];
+            const [first, second, third] = colors;
+            
+            
+            const person = { name: 'John', age: 30, city: 'New York' };
+            const { name, age } = person;
+            
+           
+            const moreColors = [...colors, 'yellow', 'purple'];
+            const newPerson = { ...person, country: 'USA' };
+            
+            output.textContent = `Array destructuring:
+First: ${first}, Second: ${second}
+
+Object destructuring:
+Name: ${name}, Age: ${age}
+
+Spread operator:
+Original colors: [${colors.join(', ')}]
+More colors: [${moreColors.join(', ')}]
+New person: ${JSON.stringify(newPerson, null, 2)}`;
+        }
+
+       
+        async function demoAsync() {
+            const output = document.getElementById('asyncDemo');
+            output.textContent = 'Starting async demo...';
+            
+            
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            
+            try {
+                output.textContent += '\nStep 1: Starting...';
+                await delay(1000);
+                
+                output.textContent += '\nStep 2: Processing...';
+                await delay(1000);
+                
+                output.textContent += '\nStep 3: Almost done...';
+                await delay(1000);
+                
+                output.textContent += '\nCompleted! ✅';
+                
+                
+                
+                const promises = [
+                    delay(500).then(() => 'Task A'),
+                    delay(300).then(() => 'Task B'),
+                    delay(700).then(() => 'Task C')
+                ];
+                
+                const results = await Promise.all(promises);
+                output.textContent += `\nParallel tasks: [${results.join(', ')}]`;
+                
+            } catch (error) {
+                output.textContent += `\nError: ${error.message}`;
+            }
+        }
+
+        
+        
+        function demoModern() {
+            const output = document.getElementById('modernDemo');
+            
+            
+            let mutableVar = 'I can change';
+            const immutableVar = 'I cannot change';
+            
+           
+            if (true) {
+                let blockScoped = 'Only available in this block';
+                const alsoBlockScoped = 'Me too!';
+            }
+            
+            
+            const calculator = {
+                add: (a, b) => a + b,
+                multiply: (a, b) => a * b,
+                power: (base, exponent) => base ** exponent
+            };
+            
+            output.textContent = `Let vs Const:
+let: ${mutableVar}
+const: ${immutableVar}
+
+Calculator module:
+add(5, 3) = ${calculator.add(5, 3)}
+multiply(4, 7) = ${calculator.multiply(4, 7)}
+power(2, 8) = ${calculator.power(2, 8)}
+
+Block scope prevents variable leakage
+Modern features: arrow functions, template literals,
+destructuring, default parameters, rest/spread`;
+        }
+
+       
+        async function getWeather() {
+            const city = document.getElementById('cityInput').value.trim();
+            const result = document.getElementById('weatherResult');
+            
+            if (!city) {
+                result.className = 'api-result error';
+                result.innerHTML = 'Please enter a city name';
+                return;
+            }
+            
+            result.className = 'api-result loading';
+            result.innerHTML = '🔄 Loading weather data...';
+            
+            try {
+               
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&hourly=temperature_2m,relative_humidity_2m&timezone=auto`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const current = data.current_weather;
+                
+                result.className = 'api-result success';
+                result.innerHTML = `
+                    <h4>🌍 Weather for ${city}</h4>
+                    <div class="weather-data">
+                        <div class="weather-item">
+                            <strong>${current.temperature}°C</strong><br>
+                            Temperature
+                        </div>
+                        <div class="weather-item">
+                            <strong>${current.windspeed}</strong><br>
+                            Wind Speed (km/h)
+                        </div>
+                        <div class="weather-item">
+                            <strong>${current.winddirection}°</strong><br>
+                            Wind Direction
+                        </div>
+                        <div class="weather-item">
+                            <strong>${new Date().toLocaleTimeString()}</strong><br>
+                            Updated
+                        </div>
+                    </div>
+                    <p><small>📡 Data from Open-Meteo API</small></p>
+                `;
+                
+            } catch (error) {
+                result.className = 'api-result error';
+                result.innerHTML = `❌ Error fetching weather: ${error.message}`;
+                console.error('Weather API Error:', error);
+            }
+        }
+
+       
+        async function getGithubUser() {
+            const username = document.getElementById('githubInput').value.trim();
+            const result = document.getElementById('githubResult');
+            
+            if (!username) {
+                result.className = 'api-result error';
+                result.innerHTML = 'Please enter a GitHub username';
+                return;
+            }
+            
+            result.className = 'api-result loading';
+            result.innerHTML = '🔄 Searching for user...';
+            
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}`);
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('User not found');
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const user = await response.json();
+                
+                result.className = 'api-result success';
+                result.innerHTML = `
+                    <div class="github-user">
+                        <img src="${user.avatar_url}" alt="${user.login}" class="github-avatar">
+                        <div>
+                            <h4>${user.name || user.login}</h4>
+                            <p><strong>@${user.login}</strong></p>
+                            <p>${user.bio || 'No bio available'}</p>
+                            <p>📍 ${user.location || 'Location not specified'}</p>
+                        </div>
+                    </div>
+                    <div class="github-stats">
+                        <div class="github-stat">
+                            <strong>${user.public_repos}</strong><br>Repositories
+                        </div>
+                        <div class="github-stat">
+                            <strong>${user.followers}</strong><br>Followers
+                        </div>
+                        <div class="github-stat">
+                            <strong>${user.following}</strong><br>Following
+                        </div>
+                    </div>
+                    <p><a href="${user.html_url}" target="_blank" style="color: #3498db;">View Profile on GitHub</a></p>
+                `;
+                
+            } catch (error) {
+                result.className = 'api-result error';
+                result.innerHTML = `❌ Error fetching user: ${error.message}`;
+                console.error('GitHub API Error:', error);
+            }
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initSlider();
+            console.log('🚀 JavaScript Learning Projects Loaded!');
+            console.log('📚 Topics covered: DOM manipulation, Event handling, ES6+, APIs');
+        });
+
+       
+        document.addEventListener('keydown', function(e) {
+
+            if (e.key === 'm' || e.key === 'M') {
+                if (document.getElementById('modal').style.display !== 'block') {
+                    openModal();
+                }
+            }
+           
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+           
+            
+            if (e.key === 'ArrowLeft') {
+                prevImage();
+            }
+            if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+        });
+    </script>
+</body>
+</html>
